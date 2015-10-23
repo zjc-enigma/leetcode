@@ -28,8 +28,24 @@ struct TreeNode {
 }
 
 struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
+    if(!root || !p || !q){
+        return NULL;
+    }
+    if(root == p || root == q){
+        return root;
+    }
+    struct TreeNode *l = lowestCommonAncestor(root->left, p, q);
+    struct TreeNode *r = lowestCommonAncestor(root->right, p, q);
 
-
+    if(l == r) {
+        return l;
+    } else if(root->val > p->val && root->val > q->val) {
+        return l;
+    } else if(root->val < p->val && root->val < q->val) {
+        return r;
+    } else {
+        return root;
+    }
 }
 
 int main(void){

@@ -33,22 +33,28 @@ void sortColors(int* nums, int numsSize)
     int mid_left = numsSize/2;
     int mid_right = numsSize/2;
 
-    while(left < right){
+    while(left < right && left < mid_left && right > mid_right){
+
         while(nums[++left] == 0);
         while(nums[--right] == 2);
 
         if(nums[left] == 1 && nums[right] == 1){
-            SWAP(nums[left++], nums[--mid_left]);
-            SWAP(nums[right++], nums[++mid_right]);
+            SWAP(nums[left--], nums[mid_left--]);
+            SWAP(nums[right++], nums[mid_right++]);
 
         } else if(nums[left] == 2 && nums[right] == 1){
-            SWAP(nums[left++], nums[right]);
+            SWAP(nums[left], nums[right]);
+            SWAP(nums[left--], nums[mid_left--]);
+
 
         } else if(nums[left] == 2 && nums[right] == 0){
             SWAP(nums[left], nums[right]);
 
         } else if(nums[left] == 1 && nums[right] == 0) {
             SWAP(nums[left], nums[right]);
+            SWAP(nums[right++], nums[mid_right++]);
+
+
         }
             // 1. nums[left] == 1 nums[right] == 1
             // 2. nums[left] == 2 nums[right] == 1

@@ -18,6 +18,7 @@
  */
 
 #include <stdio.h>
+#define MAXSIZE 100
 
 struct TreeNode {
     int val;
@@ -37,13 +38,42 @@ struct TreeNode *findSmallest(struct TreeNode *root)
 }
 
 
+int getNodeNum(struct TreeNode *root)
+{
+    if(!root) {
+        return 0;
+    }
+    if(!root->left && !root->right) {
+        return 1;
+    }
+    return(getNodeNum(root->left) + getNodeNum(root->right) + 1);
+}
 
-int kthSmallest(struct TreeNode* root, int k)
+
+int kthSmallest(struct TreeNode *root, int k)
 {
     if(!root || k <= 0){
         return 0;
     }
+    struct TreeNode *stack[MAXSIZE];
+    int stackTop = 0;
 
+
+    while(root->left) {
+
+        stack[stackTop++] = root;
+        root = root->left;
+    }
+
+        // now root is smallest
+        // go back for Kth smallest
+    int *res = (int *)malloc(sizeof(int)*k);
+
+    int i;
+    for(i=0; i<k; i++){
+        res[i] = root->val;
+        root = stack[--stackTop]
+    }
 
 }
 

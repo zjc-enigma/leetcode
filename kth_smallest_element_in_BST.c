@@ -6,7 +6,7 @@
 /* Follow up: */
 /* What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine? */
 
-
+// TODO: warning: format not a string literal and no format arguments [-Wformat-security]
 
 /**
  * Definition for a binary tree node.
@@ -18,6 +18,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #define MAXSIZE 100
 
 struct TreeNode {
@@ -56,25 +57,29 @@ int kthSmallest(struct TreeNode *root, int k)
         return 0;
     }
     struct TreeNode *stack[MAXSIZE];
-    int stackTop = 0;
+    int stackTop = -1;
 
-
-    while(root->left) {
-
-        stack[stackTop++] = root;
+    while(root) {
+        stack[++stackTop] = root;
         root = root->left;
     }
 
-        // now root is smallest
-        // go back for Kth smallest
-    int *res = (int *)malloc(sizeof(int)*k);
-
     int i;
     for(i=0; i<k; i++){
-        res[i] = root->val;
-        root = stack[--stackTop]
-    }
 
+        root = stack[stackTop--];
+
+        if(root->right){
+
+            root = root->right;
+            while(root){
+                stack[++stackTop] = root;
+                root = root->left;
+            }
+            k++;
+        }
+    }
+    return root->val;
 }
 
 int main()

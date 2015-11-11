@@ -14,15 +14,9 @@
 /*     Given target = 3, return true. */
 
 
-#include <stdio.h>
-#include <stdlib.h>
-
+#include<stdio.h>
 #define TRUE 1
 #define FALSE 0
-typedef int bool;
-
-
-
 
 bool searchMatrix(int **matrix,
                   int matrixRowSize,
@@ -60,7 +54,6 @@ bool searchMatrix(int **matrix,
 
         } else if(matrix[rowBegin][colMid] > target){
             colEnd = colMid - 1;
-
         } else {
             return TRUE;
         }
@@ -70,29 +63,6 @@ bool searchMatrix(int **matrix,
 
 int main()
 {
-    int **p;
-    p = (int **)malloc(sizeof(int *)*3);
-    int i;
-    int k=0;
 
-    for(i=0; i<3; i++){
-        p[i] = (int *)malloc(sizeof(int)*3);
-    }
 
-    int j;
-    for(i=0; i<3; i++){
-        for(j=0; j<3; j++){
-            p[i][j] = k++;
-        }
-    }
-    /* printf("%d\n", p[0][0]); */
-    /* printf("%d\n", p[0][1]); */
-    /* printf("%d\n", p[0][2]); */
-    /* printf("%d\n", p[1][0]); */
-    /* printf("%d\n", p[2][0]); */
-
-    int ret = searchMatrix(p,3,3,1);
-    printf("%d\n", ret);
-
-    return 0;
 }
